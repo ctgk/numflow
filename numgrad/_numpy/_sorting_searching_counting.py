@@ -23,4 +23,3 @@ def _sort_vjp(g, r, a, axis=-1):
 
 # https://numpy.org/doc/stable/reference/routines.sort.html#sorting
 _bind_vjp(np.sort, _sort_vjp)
-_bind_vjp(np.msort, lambda g, r, a: _sort_vjp(g, r, a, 0))

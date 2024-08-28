@@ -12,8 +12,6 @@ from tests.test_differentiation import (  # noqa:I202
     (lambda a: np.sort(a), [[3, 2, 1], [4, 6, -1]]),
     (lambda a: np.sort(a, axis=0), [[3, 2, 1], [4, 6, -1]]),
     (lambda a: np.sort(a, axis=None), [[3, 2, 1], [4, 6, -1]]),
-    (lambda a: np.msort(a), [[3, 2, 1], [4, 6, -1]]),
-    (lambda a: np.msort(a), [3, 2, 1, 4, 6, -1]),
 ])
 def parameters(request):
     return request.param
