@@ -52,7 +52,7 @@ def test_result_type(function, args, expect):
         args = (args,)
     with ng.Graph():
         result = function(*args)
-    assert type(result) == expect
+    assert isinstance(expect, result)
 
 
 if __name__ == '__main__':

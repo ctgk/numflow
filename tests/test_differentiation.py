@@ -14,11 +14,11 @@ def _test_graph_backward(f: callable, *args):
         with ng.Graph() as g:
             y = f(*args)
         print([node.function for node in g._node_list])
-        assert type(y) == ng.Variable
+        assert isinstance(y, ng.Variable)
         dargs_actual = g.backward(y, args)
         dargs_expected = _numerical_grad(f, *args)
         for arg, actual, expected in zip(args, dargs_actual, dargs_expected):
-            assert type(arg._data) == type(actual)
+            assert isinstance(actual, type(arg._data))
             if isinstance(actual, np.ndarray):
                 assert arg.shape == actual.shape
             assert np.allclose(expected, actual)
@@ -37,9 +37,9 @@ def _test_egrad(f: callable, *args):
 
     for arg, actual, expected in zip(args, dargs_actual, dargs_expected):
         if np.isscalar(arg):
-            assert type(actual) == ng.config.dtype
+            assert isinstance(actual, ng.config.dtype)
         else:
-            assert type(actual) == np.ndarray
+            assert isinstance(actual, np.ndarray)
         assert np.allclose(expected, actual)
 
 
@@ -50,12 +50,12 @@ def _test_graph_backward_custom_grad(f: callable, *args):
         with ng.Graph() as g:
             y = f(*args)
         print([node.function for node in g._node_list])
-        assert type(y) == ng.Variable
+        assert isinstance(y, ng.Variable)
         dy = np.random.uniform(-10, 10)
         dargs_actual = g.backward(y, args, target_grad=dy)
         dargs_expected = _numerical_grad(f, *args)
         for arg, actual, expected in zip(args, dargs_actual, dargs_expected):
-            assert type(arg._data) == type(actual)
+            assert isinstance(actual, type(arg._data))
             if isinstance(actual, np.ndarray):
                 assert arg.shape == actual.shape
             assert np.allclose(expected * dy, actual)
