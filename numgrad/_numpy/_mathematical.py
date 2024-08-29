@@ -207,10 +207,12 @@ _finding_vjp_x2 = lambda g, r, x1, x2: np.where(x2 == r, g, 0)
 _bind_vjp(np.maximum, _finding_vjp_x1, _finding_vjp_x2)
 _bind_vjp(np.fmax, _finding_vjp_x1, _finding_vjp_x2)
 _bind_vjp(np.amax, _reduce_finding_vjp)
+_bind_vjp(np.max, _reduce_finding_vjp)
 _bind_vjp(np.nanmax, _reduce_finding_vjp)
 _bind_vjp(np.minimum, _finding_vjp_x1, _finding_vjp_x2)
 _bind_vjp(np.fmin, _finding_vjp_x1, _finding_vjp_x2)
 _bind_vjp(np.amin, _reduce_finding_vjp)
+_bind_vjp(np.min, _reduce_finding_vjp)
 _bind_vjp(np.nanmin, _reduce_finding_vjp)
 
 # https://numpy.org/doc/stable/reference/routines.math.html#miscellaneous

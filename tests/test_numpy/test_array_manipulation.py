@@ -84,7 +84,6 @@ from tests.test_differentiation import (  # noqa:I202
     (lambda *a: np.dstack(a), (np.ones((2, 3, 4)), np.zeros((2, 3, 1)))),
     (lambda *a: np.column_stack(a), ([1, 2, 3], [2, 3, 4])),
     (lambda *a: np.column_stack(a), ([1, 2, 3], [[2], [3], [4]])),
-    (lambda *a: np.row_stack(a), ([1, 2, 3], [[2, 3, 4], [5, 6, 7]])),
 
     # https://numpy.org/doc/stable/reference/routines.array-manipulation.html#splitting-arrays
     (lambda a: sum(np.split(a, 2)), np.random.rand(2, 3, 4)),

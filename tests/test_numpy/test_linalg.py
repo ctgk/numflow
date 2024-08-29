@@ -78,7 +78,7 @@ from tests.test_differentiation import (  # noqa:I202
     (lambda a, b: np.linalg.solve(a, b), (np.eye(2), np.ones(2))),
     (
         lambda a, b: np.linalg.solve(a, b),
-        (np.random.rand(2, 3, 3) + np.eye(3), np.random.rand(2, 3)),
+        (np.random.rand(2, 3, 3) + np.eye(3), np.random.rand(3, 2)),
     ),
     (
         lambda a, b: np.linalg.solve(a, b),

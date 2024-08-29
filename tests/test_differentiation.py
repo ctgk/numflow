@@ -88,7 +88,8 @@ def test_computational_graph_backward_error():
     ),
 ])
 def test_grad(function, args, kwargs, expect):
-    actual = ng.grad(function)(*args, **kwargs)
+    df = ng.grad(function)
+    actual = df(*args, **kwargs)
     if expect is None:
         assert actual is None
     elif isinstance(expect, tuple):

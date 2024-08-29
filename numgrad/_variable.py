@@ -1,3 +1,4 @@
+from collections import namedtuple
 import functools
 
 import numpy as np
@@ -8,7 +9,7 @@ from numgrad._config import config
 
 _JOIN_FUNCS = (
     np.concatenate, np.stack, np.block, np.vstack, np.hstack, np.dstack,
-    np.column_stack, np.row_stack,
+    np.column_stack,
 )
 
 
@@ -104,8 +105,10 @@ class Variable(object):
     @staticmethod
     def _postprocess(result, func, *args, **kwargs):
         if config._graph is not None and func in config._func2vjps:
-            if func == np.linalg.slogdet:
-                result = (result[0], Variable(result[1]))
+            if func.__name__ == 'slogdet':
+                SlogdetResults = namedtuple(
+                    'SlogdetResults', ['sign', 'logabsdet'])
+                result = SlogdetResults(result[0], Variable(result[1]))
             elif isinstance(result, (tuple, list)):
                 result = tuple(
                     Variable(r) if r.dtype == config.dtype else r

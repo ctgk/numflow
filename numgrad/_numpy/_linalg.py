@@ -169,14 +169,14 @@ _bind_vjp(
 _bind_vjp(
     np.linalg.solve,
     lambda g, r, a, b: (
-        f := lambda x: x if a.ndim == b.ndim else x[..., None],
+        f := lambda x: x[..., None] if b.ndim == 1 else x,
         -np.linalg.solve(_t(a), f(g)) @ _t(f(r)),
     )[-1],
     lambda g, r, a, b: (
-        f := lambda x: x if a.ndim == b.ndim else x[..., None],
+        f := lambda x: x[..., None] if b.ndim == 1 else x,
         np.squeeze(
             np.linalg.solve(_t(a), f(g)),
-            tuple() if a.ndim == b.ndim else -1,
+            -1 if b.ndim == 1 else tuple(),
         ),
     )[-1],
 )

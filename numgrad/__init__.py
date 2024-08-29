@@ -1,7 +1,7 @@
 """Simple gradient computation library for Python."""
 
 from numgrad._config import Config, config  # noqa: F401
-from numgrad._differentiable import elementwise_grad, grad, value_and_grad
+from numgrad._grad import elementwise_grad, grad, value_and_grad
 from numgrad._graph import Graph
 from numgrad._utils._has_vjp import has_vjp
 from numgrad._variable import Variable

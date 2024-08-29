@@ -41,18 +41,18 @@ def test_multiple_graphs():
     assert g1._node_list[1].inputs[0] is b
 
 
-@pytest.mark.parametrize('function, args, expect', [
+@pytest.mark.parametrize('function, args, expect_type', [
     (lambda a, b: a + b, (1, 1), int),
     (lambda a, b: a + b, (ng.Variable(1), 1), ng.Variable),
     (lambda a, b: a + b, (1, ng.Variable(1)), ng.Variable),
     (lambda a, b: a + b, (np.float64(1), ng.Variable(1)), ng.Variable),
 ])
-def test_result_type(function, args, expect):
+def test_result_type(function, args, expect_type):
     if not isinstance(args, tuple):
         args = (args,)
     with ng.Graph():
         result = function(*args)
-    assert isinstance(expect, result)
+    assert isinstance(result, expect_type)
 
 
 if __name__ == '__main__':

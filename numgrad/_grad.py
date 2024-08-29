@@ -47,11 +47,11 @@ def grad(forward_func: callable) -> callable:
     Examples
     --------
     >>> grad(np.tanh)(1)  # doctest: +ELLIPSIS
-    0.4199...
+    np.float64(0.4199...
     >>>
     >>> # returns tuple of gradients if you pass multiple positional args.
     >>> grad(np.hypot)(-3, 4)
-    (-0.6, 0.8)
+    (np.float64(-0.6), np.float64(0.8))
     >>>
     >>> # raises an error because `np.tanh([0, 1])` is not scalar.
     >>> grad(np.tanh)([0, 1])
@@ -81,11 +81,11 @@ def value_and_grad(forward_func: callable) -> callable:
     Examples
     --------
     >>> value_and_grad(np.tanh)(1)  # doctest: +ELLIPSIS
-    (0.7615..., 0.4199...)
+    (np.float64(0.7615..., np.float64(0.4199...)
     >>>
     >>> # returns tuple of gradients if you pass multiple positional args.
     >>> value_and_grad(np.hypot)(-3, 4)
-    (5.0, (-0.6, 0.8))
+    (np.float64(5.0), (np.float64(-0.6), np.float64(0.8)))
     >>>
     >>> # raises an error because `np.tanh([0, 1])` is not scalar.
     >>> value_and_grad(np.tanh)([0, 1])
@@ -119,7 +119,7 @@ def elementwise_grad(forward_func: callable) -> callable:
     >>>
     >>> # returns tuple of gradients if you pass multiple positional args.
     >>> elementwise_grad(np.hypot)([-3, 3], 4)
-    (array([-0.6,  0.6]), 1.6)
+    (array([-0.6,  0.6]), np.float64(1.6))
     """
     return _func_to_grad(
         forward_func, return_value=False, force_scalar_output=False)

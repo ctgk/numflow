@@ -130,7 +130,6 @@ _bind_vjp(
         ],
     )[-1],
 )
-# _bind_vjp(np.row_stack, ...) np.row_stack is np.vstack
 
 # https://numpy.org/doc/stable/reference/routines.array-manipulation.html#splitting-arrays
 _bind_vjp(np.split, lambda g, r, ary, _, axis=0: np.concatenate(g, axis=axis))

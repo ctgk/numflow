@@ -26,15 +26,15 @@ class Graph(object):
     ...     y = np.tanh(x)
     ...
     >>> y
-    0.7615941559557649
+    np.float64(0.7615941559557649)
     >>> g.backward(y, x)
-    0.41997434161402614
+    np.float64(0.41997434161402614)
     >>>
     >>> with ng.Graph() as g:
     ...     y = np.isnan(x)
     ...
     >>> y
-    False
+    np.False_
     >>> g.backward(y, x)  # fails to differentiate through `np.isnan`
     Traceback (most recent call last):
     ...
