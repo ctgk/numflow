@@ -25,7 +25,12 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--batch', type=int, default=50)
     args = parser.parse_args()
 
-    x, y = fetch_openml('mnist_784', return_X_y=True, as_frame=False)
+    x, y = fetch_openml(
+        'mnist_784',
+        return_X_y=True,
+        as_frame=False,
+        parser='liac-arff',
+    )
     x = x.astype(float).reshape(-1, 28 * 28 * 1)
     y = y.astype(int)
     x_train, x_test, y_train, y_test = train_test_split(
