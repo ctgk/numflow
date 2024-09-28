@@ -29,7 +29,7 @@ def test_non_default_dtype():
 
 def test_ufunc():
     a = ng.Variable([0, 1])
-    assert type(a + 0) == np.ndarray
+    assert isinstance(a + 0, np.ndarray)
 
 
 @pytest.mark.parametrize('function, expect', [

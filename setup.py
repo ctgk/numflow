@@ -11,7 +11,7 @@ from setuptools import find_packages, setup
 
 
 install_requires = [
-    'numpy',
+    'numpy>=2',
     'scipy',
 ]
 
@@ -45,7 +45,7 @@ setup(
         exclude=('tests', 'tests.*'),
         include=('numgrad', 'numgrad.*'),
     ),
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     install_requires=install_requires,
 
     zip_safe=False,

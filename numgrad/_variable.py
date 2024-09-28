@@ -1,3 +1,4 @@
+from collections import namedtuple
 import functools
 
 import numpy as np
@@ -8,7 +9,7 @@ from numgrad._config import config
 
 _JOIN_FUNCS = (
     np.concatenate, np.stack, np.block, np.vstack, np.hstack, np.dstack,
-    np.column_stack, np.row_stack,
+    np.column_stack,
 )
 
 
@@ -104,8 +105,10 @@ class Variable(object):
     @staticmethod
     def _postprocess(result, func, *args, **kwargs):
         if config._graph is not None and func in config._func2vjps:
-            if func == np.linalg.slogdet:
-                result = (result[0], Variable(result[1]))
+            if func.__name__ == 'slogdet':
+                SlogdetResults = namedtuple(
+                    'SlogdetResults', ['sign', 'logabsdet'])
+                result = SlogdetResults(result[0], Variable(result[1]))
             elif isinstance(result, (tuple, list)):
                 result = tuple(
                     Variable(r) if r.dtype == config.dtype else r
@@ -113,8 +116,28 @@ class Variable(object):
                 )
             else:
                 result = Variable(result)
+            if func not in _JOIN_FUNCS:
+                nin = len(config._func2vjps[func])
+                args = tuple(
+                    a if i >= nin else _to_array_or_number(a)
+                    for i, a in enumerate(args)
+                )
             config._graph._add_node(result, func, *args, **kwargs)
         return result
+
+
+def _to_array(a):
+    if not isinstance(a, (Variable, np.ndarray)):
+        return np.asarray(a, config.dtype)
+    return a
+
+
+def _to_array_or_number(a):
+    if isinstance(a, Variable):
+        return a
+    if np.isscalar(a):
+        return config.dtype(a)
+    return _to_array(a)
 
 
 def _inplace(self, inplace_op, *other):
